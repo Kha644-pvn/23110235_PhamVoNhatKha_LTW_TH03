@@ -39,7 +39,7 @@ META-INF/persistence.xml # Cấu hình kết nối DB
 
 ## 📌 Cài đặt & chạy
 
-1. **Tạo database** SQL Server: `LTW_TH03`.
+1. **Tạo database** SQL Server: `jpast56`.
 2. **Cập nhật username/password** trong `persistence.xml`.
 3. **Build dự án**:
 
@@ -49,6 +49,6 @@ Deploy trên Tomcat với context path /LTW.
 
 Truy cập ứng dụng:
 
-Đăng nhập: http://localhost:8080/LTW/login
+Đăng nhập: http://localhost:8080/TH02/views/Login.jsp
 
-Đăng ký: http://localhost:8080/LTW/Register.jsp
+Đăng ký: http://localhost:8080/TH02/views/Register.jsp
