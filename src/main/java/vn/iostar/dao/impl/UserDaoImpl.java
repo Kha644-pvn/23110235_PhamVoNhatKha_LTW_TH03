@@ -1,5 +1,5 @@
 package vn.iostar.dao.impl;
-
+import java.util.List;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import vn.iostar.models.User;
@@ -80,6 +80,122 @@ public class UserDaoImpl implements UserDao{
             em.getTransaction().rollback();
             e.printStackTrace();
             return false;
+        } finally {
+            em.close();
+        }
+    }
+ // ==== Các method mới cho Admin CRUD ====
+
+    @Override
+    public boolean add(User u) {
+        EntityManager em = JPAUtil.getEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.persist(u);
+            em.getTransaction().commit();
+            return true;
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) em.getTransaction().rollback();
+            e.printStackTrace();
+            return false;
+        } finally {
+            em.close();
+        }
+    }
+
+    @Override
+    public boolean update(User u) {
+        EntityManager em = JPAUtil.getEntityManager();
+        try {
+            em.getTransaction().begin();
+            User existing = em.find(User.class, u.getId());
+            if (existing != null) {
+                existing.setUsername(u.getUsername());
+                existing.setPassword(u.getPassword());
+                existing.setRoleid(u.getRoleid());
+                existing.setFullname(u.getFullname());
+                existing.setSdt(u.getSdt());
+                em.merge(existing);
+            } else {
+                return false;
+            }
+            em.getTransaction().commit();
+            return true;
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) em.getTransaction().rollback();
+            e.printStackTrace();
+            return false;
+        } finally {
+            em.close();
+        }
+    }
+
+    @Override
+    public boolean delete(int id) {
+        EntityManager em = JPAUtil.getEntityManager();
+        try {
+            em.getTransaction().begin();
+            User u = em.find(User.class, id);
+            if (u != null) {
+                em.remove(u);
+            } else {
+                return false;
+            }
+            em.getTransaction().commit();
+            return true;
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) em.getTransaction().rollback();
+            e.printStackTrace();
+            return false;
+        } finally {
+            em.close();
+        }
+    }
+
+    @Override
+    public User findById(int id) {
+        EntityManager em = JPAUtil.getEntityManager();
+        try {
+            return em.find(User.class, id);
+        } finally {
+            em.close();
+        }
+    }
+
+    @Override
+    public List<User> getAll() {
+        EntityManager em = JPAUtil.getEntityManager();
+        try {
+            TypedQuery<User> query = em.createQuery("SELECT u FROM User u", User.class);
+            return query.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
+    // ==== Search ====
+
+    @Override
+    public List<User> searchByUsername(String keyword) {
+        EntityManager em = JPAUtil.getEntityManager();
+        try {
+            TypedQuery<User> query = em.createQuery(
+                "SELECT u FROM User u WHERE u.username LIKE :kw", User.class);
+            query.setParameter("kw", "%" + keyword + "%");
+            return query.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
+    @Override
+    public List<User> searchByFullname(String keyword) {
+        EntityManager em = JPAUtil.getEntityManager();
+        try {
+            TypedQuery<User> query = em.createQuery(
+                "SELECT u FROM User u WHERE u.fullname LIKE :kw", User.class);
+            query.setParameter("kw", "%" + keyword + "%");
+            return query.getResultList();
         } finally {
             em.close();
         }

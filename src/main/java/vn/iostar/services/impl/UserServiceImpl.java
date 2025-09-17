@@ -1,4 +1,5 @@
 package vn.iostar.services.impl;
+import java.util.List;
 
 import vn.iostar.dao.UserDao;
 import vn.iostar.dao.impl.UserDaoImpl;
@@ -38,6 +39,44 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean resetPassword(String username, String newPassword) {
         return dao.updatePassword(username, newPassword);
+    }
+    // ==== Các method CRUD cho Admin ====
+
+    @Override
+    public boolean add(User u) {
+        return dao.add(u);
+    }
+
+    @Override
+    public boolean update(User u) {
+        return dao.update(u);
+    }
+
+    @Override
+    public boolean delete(int id) {
+        return dao.delete(id);
+    }
+
+    @Override
+    public User findById(int id) {
+        return dao.findById(id);
+    }
+
+    @Override
+    public List<User> getAll() {
+        return dao.getAll();
+    }
+
+    // ==== Search ====
+
+    @Override
+    public List<User> searchByUsername(String keyword) {
+        return dao.searchByUsername(keyword);
+    }
+
+    @Override
+    public List<User> searchByFullname(String keyword) {
+        return dao.searchByFullname(keyword);
     }
 
 }

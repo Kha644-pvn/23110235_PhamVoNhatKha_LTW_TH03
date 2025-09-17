@@ -149,6 +149,20 @@ public class CategoryDaoImpl implements CategoryDao {
         }
 
 	}
+    
+    @Override
+    public List<Category> searchByName(String keyword) {
+        EntityManager em = JPAUtil.getEntityManager();
+        try {
+            TypedQuery<Category> q = em.createQuery(
+                "SELECT c FROM Category c WHERE c.name LIKE :kw", Category.class);
+            q.setParameter("kw", "%" + keyword + "%");
+            return q.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
 	
 
 }

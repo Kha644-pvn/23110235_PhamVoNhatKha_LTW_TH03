@@ -140,5 +140,26 @@ public class CategoryServiceImpl implements CategoryService {
 	            em.close();
 	        }
 	    }
+	    // ==== Thêm Search Category theo tên ====
+	    public List<Category> searchByName(String keyword) {
+	        EntityManager em = JPAUtil.getEntityManager();
+	        try {
+	            TypedQuery<Category> query = em.createQuery(
+	                "SELECT c FROM Category c WHERE LOWER(c.name) LIKE LOWER(:kw)", 
+	                Category.class
+	            );
+	            query.setParameter("kw", "%" + keyword + "%");
+	            List<Category> list = query.getResultList();
+
+	            for (Category c : list) {
+	                if (c.getImage() != null) {
+	                    c.setImageBase64(Base64.getEncoder().encodeToString(c.getImage()));
+	                }
+	            }
+	            return list;
+	        } finally {
+	            em.close();
+	        }
+	    }
 
 }

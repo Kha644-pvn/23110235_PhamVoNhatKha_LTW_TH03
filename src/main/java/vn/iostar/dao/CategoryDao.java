@@ -11,6 +11,10 @@ public interface CategoryDao {
 	    List<Category> getByUserId(int userid);
 	    boolean updateByManager(Category c);
 	    boolean deleteByManager(int id);
+	    
+	    // === Các hàm mới (cho Admin CRUD + Search) ===
+	    List<Category> searchByName(String keyword); // tìm kiếm theo tên
+	    boolean deleteByAdmin(int id);               // admin xóa trực tiếp
 	
 	
 

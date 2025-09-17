@@ -5,40 +5,63 @@
 <head>
 <meta charset="UTF-8">
 <title>Đăng nhập</title>
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-	rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+    body {
+        background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+    }
+    .card {
+        border-radius: 20px;
+        padding: 30px;
+    }
+    .form-control {
+        border-radius: 12px;
+    }
+    .btn-custom {
+        border-radius: 12px;
+        transition: 0.3s;
+    }
+    .btn-custom:hover {
+        background-color: #0b5ed7 !important;
+        transform: scale(1.02);
+    }
+    .link-custom {
+        text-decoration: none;
+        font-weight: 500;
+        margin: 0 5px;
+    }
+    .link-custom:hover {
+        text-decoration: underline;
+        color: #0d6efd;
+    }
+</style>
 </head>
-<body
-	class="bg-light d-flex justify-content-center align-items-center vh-100">
-	<div class="card shadow p-4" style="width: 400px;">
-		<h3 class="text-center mb-3">Đăng nhập</h3>
+<body class="d-flex justify-content-center align-items-center vh-100">
+    <div class="card shadow-lg bg-white" style="width: 420px;">
+        <h3 class="text-center mb-4 fw-bold text-primary">Đăng nhập</h3>
 
-		<!-- Hiển thị lỗi nếu có -->
-		<c:if test="${not empty error}">
-			<div class="alert alert-danger">${error}</div>
-		</c:if>
+        <!-- Hiển thị lỗi nếu có -->
+        <c:if test="${not empty error}">
+            <div class="alert alert-danger text-center">${error}</div>
+        </c:if>
 
-		<form action="${pageContext.request.contextPath}/user" method="post">
-			<input type="hidden" name="action" value="login" />
-			<div class="mb-3">
-				<label class="form-label">Tên đăng nhập</label> <input type="text"
-					class="form-control" name="username" required>
-			</div>
-			<div class="mb-3">
-				<label class="form-label">Mật khẩu</label> <input type="password"
-					class="form-control" name="password" required>
-			</div>
-			<button type="submit" class="btn btn-primary w-100">Đăng
-nhập</button>
-		</form>
+        <form action="${pageContext.request.contextPath}/user" method="post">
+            <input type="hidden" name="action" value="login" />
+            <div class="mb-3">
+                <label class="form-label">Tên đăng nhập</label>
+                <input type="text" class="form-control" name="username" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Mật khẩu</label>
+                <input type="password" class="form-control" name="password" required>
+            </div>
+            <button type="submit" class="btn btn-primary w-100 btn-custom">Đăng nhập</button>
+        </form>
 
-		<div class="text-center mt-3">
-			<a href="${pageContext.request.contextPath}/Views/Register.jsp">Đăng
-				ký</a> | <a
-				href="${pageContext.request.contextPath}/Views/ForgotPass.jsp">Quên
-				mật khẩu?</a>
-		</div>
-	</div>
+        <div class="text-center mt-3">
+            <a href="${pageContext.request.contextPath}/Views/Register.jsp" class="link-custom">Đăng ký</a> | 
+            <a href="${pageContext.request.contextPath}/Views/ForgotPass.jsp" class="link-custom">Quên mật khẩu?</a>
+        </div>
+    </div>
 </body>
 </html>

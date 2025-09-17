@@ -6,21 +6,52 @@
     <meta charset="UTF-8">
     <title>Quên mật khẩu</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #cfd9df 0%, #e2ebf0 100%);
+        }
+        .card {
+            border-radius: 20px;
+            padding: 30px;
+        }
+        .form-control {
+            border-radius: 12px;
+        }
+        .btn-custom {
+            border-radius: 12px;
+            transition: 0.3s;
+        }
+        .btn-custom:hover {
+            background-color: #0b5ed7 !important;
+            transform: scale(1.02);
+        }
+        .link-custom {
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .link-custom:hover {
+            text-decoration: underline;
+            color: #0d6efd;
+        }
+    </style>
 </head>
-<body class="bg-light d-flex justify-content-center align-items-center vh-100">
-<div class="card shadow p-4" style="width: 400px;">
-    <h3 class="text-center mb-3">Quên mật khẩu</h3>
+<body class="d-flex justify-content-center align-items-center vh-100">
+<div class="card shadow-lg bg-white" style="width: 420px;">
+    <h3 class="text-center mb-4 fw-bold text-primary">Quên mật khẩu</h3>
 
+    <!-- Hiển thị thông báo lỗi -->
     <c:if test="${not empty error}">
-        <div class="alert alert-danger">${error}</div>
-    </c:if>
-    <c:if test="${not empty success}">
-        <div class="alert alert-success">${success}</div>
-        <a href="${pageContext.request.contextPath}/views/Login.jsp" class="btn btn-primary w-100 mt-2">
-            Quay về trang Đăng nhập
-        </a>
+        <div class="alert alert-danger text-center">${error}</div>
     </c:if>
 
+    <!-- Hiển thị thành công -->
+    <c:if test="${not empty success}">
+        <div class="alert alert-success text-center">${success}</div>
+        <a href="${pageContext.request.contextPath}/views/Login.jsp" 
+           class="btn btn-primary w-100 mt-3 rounded-pill">Quay về trang Đăng nhập</a>
+    </c:if>
+
+    <!-- Hiển thị form nếu chưa thành công -->
     <c:if test="${empty success}">
         <form action="${pageContext.request.contextPath}/user" method="post">
             <input type="hidden" name="action" value="forgot">
@@ -44,8 +75,11 @@
                 <label class="form-label">Xác nhận mật khẩu</label>
                 <input type="password" class="form-control" name="confirmPassword" required>
             </div>
-            <button type="submit" class="btn btn-primary w-100">Đặt lại mật khẩu</button>
+            <button type="submit" class="btn btn-primary w-100 btn-custom">Đặt lại mật khẩu</button>
         </form>
+        <div class="text-center mt-3">
+            <a href="${pageContext.request.contextPath}/views/Login.jsp" class="link-custom">Quay về đăng nhập</a>
+        </div>
     </c:if>
 </div>
 </body>

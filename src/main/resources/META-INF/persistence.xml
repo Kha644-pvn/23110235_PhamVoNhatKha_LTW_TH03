@@ -8,6 +8,7 @@
   <persistence-unit name="TH02" transaction-type="RESOURCE_LOCAL">
     <class>vn.iostar.models.User</class>
     <class>vn.iostar.models.Category</class>
+    <class>vn.iostar.models.Video</class>
 
     <properties>
       <!-- JDBC Driver -->
